@@ -25,52 +25,61 @@ Một CLI thường gồm các lớp có thể kiểm thử khác nhau:
 
 Giả định: CLI tên mycli, chạy node mycli.js greet --name Lan sẽ in Hello, Lan!. Ta chưa viết toàn bộ CLI; chỉ test-drive hàm tạo thông điệp và parser tối thiểu.
 
-1. <h3>Red: viết test thất bại</h3> 
+  +  <h3>Red: viết test thất bại</h3> 
 
-    ```javascript
-    // Tạo file `test/greet.test.js`:
-    const assert = require("node:assert/strict");
-    const { test } = require("node:test");
-    const { buildGreeting } = require("../src/greet");
+      ```javascript
+      // Tạo file `test/greet.test.js`:
+      const assert = require("node:assert/strict");
+      const { test } = require("node:test");
+      const { buildGreeting } = require("../src/greet");
 
-    test("buildGreeting uses the provided name", () => {
-    assert.equal(buildGreeting({ name: "Lan" }), "Hello, Lan!");
-    });
-    ```
+      test("buildGreeting uses the provided name", () => {
+      assert.equal(buildGreeting({ name: "Lan" }), "Hello, Lan!");
+      });
+      ```
 
-    Chạy:
-    ```javascript 
-     node --test
-    ```
-    Output : Test này sẽ thất bại vì src/greet.js chưa tồn tại. 
-2. <h3> Green: viết đủ để pass</h3>
-   
-    ```javascript
-    // Tạo file `src/greet.js`:
-    function buildGreeting({ name }) {
-    return `Hello, ${name}!`;
-    }
-
-    module.exports = { buildGreeting };
-    ```
-    Chạy lại node --test; test giờ xanh.
-
-2. <h3> Refactor: thêm hành vi kế tiếp</h3>
-     Bây giờ chọn một hành vi nhỏ tiếp theo: khi không có --name, dùng world.
-
-    
-    ```javascript
-    // Tạo file `test/greet.test.js`:
-   
-    test("buildGreeting defaults to world when name is missing", () => {
-    assert.equal(buildGreeting({}), "Hello, world!");
-    });
-    ```
-    Sau đó viết đủ mã:
+      Chạy:
+      ```javascript 
+       node --test
+      ```
+      Output : Test này sẽ thất bại vì src/greet.js chưa tồn tại. 
+  + <h3> Green: viết đủ để pass</h3>
      
       ```javascript
-    function buildGreeting({ name = "world" } = {}) {
-    return `Hello, ${name}!`;
-    }
+      // Tạo file `src/greet.js`:
+      function buildGreeting({ name }) {
+      return `Hello, ${name}!`;
+      }
+
+      module.exports = { buildGreeting };
+      ```
+      Chạy lại node --test; test giờ xanh.
+
+  + <h3> Refactor: thêm hành vi kế tiếp</h3>
+       Bây giờ chọn một hành vi nhỏ tiếp theo: khi không có --name, dùng world.
+
+      
+      ```javascript
+      // Tạo file `test/greet.test.js`:
+     
+      test("buildGreeting defaults to world when name is missing", () => {
+      assert.equal(buildGreeting({}), "Hello, world!");
+      });
+      ```
+      Sau đó viết đủ mã:
+       
+      ```javascript
+      function buildGreeting({ name = "world" } = {}) {
+          return `Hello, ${name}!`;
+          }
+      ```
+      Khi hai test đều xanh, bạn có thể refactor—ví dụ đổi tên biến, thêm JSDoc, hoặc chuyển sang ESM—mà không thay đổi hành vi đã được kiểm chứng.
+## Kết nối với CLI thực tế  <br>
+   Phần gọi CLI có thể giữ rất mỏng:
+   
+    ```javascript
+      function buildGreeting({ name = "world" } = {}) {
+          return `Hello, ${name}!`;
+          }
     ```
-    Khi hai test đều xanh, bạn có thể refactor—ví dụ đổi tên biến, thêm JSDoc, hoặc chuyển sang ESM—mà không thay đổi hành vi đã được kiểm chứng.
+    
