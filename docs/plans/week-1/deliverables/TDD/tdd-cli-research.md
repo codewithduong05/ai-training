@@ -25,7 +25,7 @@ Một CLI thường gồm các lớp có thể kiểm thử khác nhau:
 
 Giả định: CLI tên mycli, chạy node mycli.js greet --name Lan sẽ in Hello, Lan!. Ta chưa viết toàn bộ CLI; chỉ test-drive hàm tạo thông điệp và parser tối thiểu.
 
-1. Red: viết test thất bại 
+1. <h3>Red: viết test thất bại</h3> <br>
     Tạo file `test/greet.test.js`:
 
     ```javascript
@@ -39,6 +39,8 @@ Giả định: CLI tên mycli, chạy node mycli.js greet --name Lan sẽ in Hel
     ```
 
     Chạy:
-    node --test
-
-
+    ```javascript 
+     node --test
+    ```
+    Output : Test này sẽ thất bại vì src/greet.js chưa tồn tại. 
+1. <h3> Green: viết đủ để pass</h3>
