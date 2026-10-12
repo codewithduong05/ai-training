@@ -47,6 +47,7 @@ Tạo và duy trì các tệp sau:
 
 | Sản phẩm | Mục đích | Bằng chứng yêu cầu |
 | --- | --- | --- |
-| [`docs/plans/week-1/deliverables/TDD/tdd.md`](docs/plans/week-1/deliverables/TDD/tdd.md) | Giải thích TDD và xác định chiến lược kiểm thử cho CLI Ticket Manager. | Các nguyên tắc TDD, ma trận kiểm thử, và cách xác minh dữ liệu kiểm thử trước khi triển khai. |
-| [`docs/plans/week-1/deliverables/workflow/ai-workflow-evidence.md`](docs/plans/week-1/deliverables/workflow/ai-workflow-evidence.md) | Thể hiện cách áp dụng ba quy trình làm việc với AI. | Prompt thực tế, tóm tắt ngắn gọn đầu ra, phản hồi và lý do lựa chọn quy trình. |
-| [`docs/plans/week-1/deliverables/assessment/self-assessment.md`](docs/plans/week-1/deliverables/assessment/self-assessment.md) | Chuẩn bị cho buổi đánh giá hoặc các câu hỏi vấn đáp. | Danh sách kiểm tra, câu hỏi ôn tập và đánh giá tự phản biện. |
+| [`docs/plans/week-1/deliverables/TDD/tdd-cli-research.md`](docs/plans/week-1/deliverables/TDD/tdd-cli-research.md) | Nghiên cứu TDD và xác định chiến lược kiểm thử cho CLI Ticket Manager. | Các nguyên tắc, so sánh các mức độ kiểm thử, ma trận kiểm thử, phương pháp xác minh mã do AI tạo. |
+| [`docs/plans/week-1/deliverables/TDD/tdd.md`](docs/plans/week-1/deliverables/TDD/tdd.md) | Tổng hợp chiến lược và kế hoạch thực thi TDD cho dự án. | Quy trình Red-Green-Refactor, cấu trúc kiểm thử, và danh mục các lỗi phổ biến cần tránh. |
+| [`docs/plans/week-1/deliverables/workflow/ai-workflow-evidence.md`](docs/plans/week-1/deliverables/workflow/ai-workflow-evidence.md) | Thể hiện cách áp dụng ba quy trình làm việc với AI. | Prompt thực tế, tóm tắt ngắn gọn đầu ra, phê bình, quyết định, thay đổi và cách xác minh. |
+| [`docs/plans/week-1/deliverables/assessment/self-assessment.md`](docs/plans/week-1/deliverables/assessment/self-assessment.md) | Chuẩn bị cho buổi đánh giá hoặc các câu hỏi vấn đáp. | Danh sách kiểm tra, câu hỏi ôn tập và đánh giá trung thực về mức độ tự tin. |
