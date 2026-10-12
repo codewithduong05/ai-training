@@ -1,15 +1,5 @@
-# 1. Red Green Refactor 
 
-| Giai đoạn | Việc cần làm                                                                            | Trong ngữ cảnh CLI Node.js                                                                      |
-| --------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Red       | Viết một test nhỏ cho hành vi chưa tồn tại, chạy và xác nhận nó thất bại đúng cách.     | Ví dụ: test hàm parseArgs() nhận ["add", "note"] và mong đợi { command: "add", value: "note" }. |
-| Green     | Viết lượng mã tối thiểu để toàn bộ test vượt qua.                                       | Tạo parseArgs() trả về đúng kết quả trên; chưa cần xử lý mọi lệnh hay lỗi phức tạp.             |
-| Refactor  | Cải thiện cấu trúc, loại bỏ trùng lặp, đặt tên rõ hơn—mà không làm test chuyển sang đỏ. | Tách parser khỏi hàm main(), thêm kiểu JSDoc/TypeScript, đơn giản hóa nhánh xử lý.              |
-
-+ Điểm mấu chốt là mỗi vòng chỉ xử lý một hành vi: test phải thất bại trước, rồi mã mới được thêm để làm nó vượt qua, sau đó mới refactor khi mọi test vẫn xanh.
-
-
-## 2. Áp Dụng Cho Node JS
+## 1. Áp Dụng Cho Node JS
 
 Một CLI thường gồm các lớp có thể kiểm thử khác nhau:
 
@@ -21,7 +11,7 @@ Một CLI thường gồm các lớp có thể kiểm thử khác nhau:
 
 + Lớp CLI mỏng: nhận argv, gọi parser và logic, sau đó in kết quả hoặc trả exit code.
 
-## 3.Ví dụ đơn giản: lệnh greet
+## 2.Ví dụ đơn giản: lệnh greet
 
 Giả định: CLI tên mycli, chạy node mycli.js greet --name Lan sẽ in Hello, Lan!. Ta chưa viết toàn bộ CLI; chỉ test-drive hàm tạo thông điệp và parser tối thiểu.
 
@@ -103,7 +93,7 @@ Giả định: CLI tên mycli, chạy node mycli.js greet --name Lan sẽ in Hel
 
     module.exports = { run };
       ```
-## Lợi ích
+## 3.Lợi ích
 + Yêu cầu rõ ràng hơn: viết test trước buộc bạn xác định đầu vào, đầu ra và lỗi trước khi code.
 + Phản hồi nhanh: với unit test, bạn biết ngay parser hay logic lệnh có đúng không mà không phải gõ lệnh CLI thủ công nhiều lần.
 
@@ -113,7 +103,7 @@ Giả định: CLI tên mycli, chạy node mycli.js greet --name Lan sẽ in Hel
 
 + Giảm test “false positive”: bước Red xác nhận test thực sự có khả năng thất bại khi hành vi chưa có.
 
-## Giới hạn
+## 4.Giới hạn
 + Không thay thế kiểm thử tích hợp/E2E: unit test parseArgs và buildGreeting không chứng minh node mycli.js greet --name Lan hoạt động đúng trên shell thực tế, bao gồm PATH, shebang, exit code và encoding.
 
 + Có thể quá tập trung vào unit: nếu chỉ test hàm nhỏ, bạn có thể bỏ sót lỗi ghép nối giữa parser, command handler và file system.
@@ -124,7 +114,7 @@ Giả định: CLI tên mycli, chạy node mycli.js greet --name Lan sẽ in Hel
 
 + I/O và side effects vẫn cần chiến lược riêng: đọc/ghi file, network, environment variable và signal xử lý cần mock cẩn thận hoặc test integration riêng.
 
-## Giả định và điểm cần kiểm chứng
+## 5.Giả định và điểm cần kiểm chứng
 Những giả định trong ví dụ trên cần xác nhận trước khi mở rộng:
 
 + Runtime và module system: ví dụ dùng CommonJS với node --test; nếu dự án dùng ESM, cần đổi require/module.exports thành import/export và kiểm tra "type": "module" trong package.json.
