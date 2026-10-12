@@ -43,11 +43,11 @@ Kết thúc Tuần 1, ứng viên có thể:
 
 ## 5. Sản phẩm bàn giao (Deliverables)
 
-Tạo và duy trì các tệp sau:
-
+Tạo và duy trì các tệp sau trong thư mục `docs/plans/week-1/deliverables/`:
 | Sản phẩm | Mục đích | Bằng chứng yêu cầu |
 | --- | --- | --- |
-| [`docs/plans/week-1/deliverables/TDD/tdd-cli-research.md`](docs/plans/week-1/deliverables/TDD/tdd-cli-research.md) | Nghiên cứu TDD và xác định chiến lược kiểm thử cho CLI Ticket Manager. | Các nguyên tắc, so sánh các mức độ kiểm thử, ma trận kiểm thử, phương pháp xác minh mã do AI tạo. |
-| [`docs/plans/week-1/deliverables/TDD/tdd.md`](docs/plans/week-1/deliverables/TDD/tdd.md) | Tổng hợp chiến lược và kế hoạch thực thi TDD cho dự án. | Quy trình Red-Green-Refactor, cấu trúc kiểm thử, và danh mục các lỗi phổ biến cần tránh. |
-| [`docs/plans/week-1/deliverables/workflow/ai-workflow-evidence.md`](docs/plans/week-1/deliverables/workflow/ai-workflow-evidence.md) | Thể hiện cách áp dụng ba quy trình làm việc với AI. | Prompt thực tế, tóm tắt ngắn gọn đầu ra, phê bình, quyết định, thay đổi và cách xác minh. |
-| [`docs/plans/week-1/deliverables/assessment/self-assessment.md`](docs/plans/week-1/deliverables/assessment/self-assessment.md) | Chuẩn bị cho buổi đánh giá hoặc các câu hỏi vấn đáp. | Danh sách kiểm tra, câu hỏi ôn tập và đánh giá trung thực về mức độ tự tin. |
+| `TDD/tdd.md` | Giải thích TDD và xác định chiến lược kiểm thử cho CLI Ticket Manager. | Các nguyên tắc, so sánh các mức độ kiểm thử, ma trận kiểm thử, phương pháp xác minh mã do AI tạo và các lỗi phổ biến. |
+| `TDD/tdd-cli-research.md` | Nghiên cứu sâu về các trường hợp kiểm thử CLI. | Các kịch bản kiểm thử, xác thực đầu vào, luồng lỗi, lưu trữ JSON. |
+| `workflow/ai-workflow-evidence.md` | Thể hiện cách áp dụng ba quy trình làm việc với AI. | Prompt thực tế, tóm tắt ngắn gọn đầu ra, phê bình, quyết định, thay đổi và cách xác minh. |
+| `assessment/self-assessment.md` | Chuẩn bị cho buổi đánh giá hoặc các câu hỏi vấn đáp. | Danh sách kiểm tra, câu hỏi ôn tập và đánh giá trung thực về mức độ tự tin. |
+
