@@ -47,6 +47,6 @@ Tạo và duy trì các tệp sau:
 
 | Sản phẩm | Mục đích | Bằng chứng yêu cầu |
 | --- | --- | --- |
-| `docs/plans/week-1/deliverables/TDD/tdd.md` | Giải thích TDD và xác định chiến lược kiểm thử cho CLI Ticket Manager. | Các nguyên tắc, so sánh các mức độ kiểm thử, ma trận kiểm thử, phương pháp xác minh mã do AI tạo và các lỗi phổ biến. |
+| [`docs/plans/week-1/deliverables/TDD/tdd.md`][tdd.md] | Giải thích TDD và xác định chiến lược kiểm thử cho CLI Ticket Manager. | Các nguyên tắc, so sánh các mức độ kiểm thử, ma trận kiểm thử, phương pháp xác minh mã do AI tạo và các lỗi phổ biến. |
 | `docs/plans/week-1/deliverables/workflow/ ai-workflow-evidence.md` | Thể hiện cách áp dụng ba quy trình làm việc với AI. | Prompt thực tế, tóm tắt ngắn gọn đầu ra, phê bình, quyết định, thay đổi và cách xác minh. |
 | `docs/plans/week-1/deliverables/assessment/self-assessment.md` | Chuẩn bị cho buổi đánh giá hoặc các câu hỏi vấn đáp. | Danh sách kiểm tra, câu hỏi ôn tập và đánh giá trung thực về mức độ tự tin. |
