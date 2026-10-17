@@ -15,8 +15,8 @@ export interface ValidationResult {
   errors: string[];
 }
 
-const VALID_STATUSES: TicketStatus[] = ['open', 'in_progress', 'resolved', 'closed'];
-const VALID_PRIORITIES: TicketPriority[] = ['low', 'medium', 'high', 'urgent'];
+export const VALID_STATUSES: TicketStatus[] = ['open', 'in_progress', 'resolved', 'closed'];
+export const VALID_PRIORITIES: TicketPriority[] = ['low', 'medium', 'high', 'urgent'];
 
 export function validateTicket(input: any): ValidationResult {
   const errors: string[] = [];

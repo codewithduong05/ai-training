@@ -80,4 +80,18 @@ describe('CLI Integration & Failure Path Tests', () => {
     const content = fs.readFileSync(dataFile, 'utf-8');
     expect(content).toBe('corrupted json content');
   });
+
+  test('should reject structurally invalid tickets without overwriting the file', () => {
+    const raw = '[{"id":"a1"},null]';
+    fs.writeFileSync(dataFile, raw, 'utf-8');
+
+    const listRes = runCli(['list']);
+    expect(listRes.status).not.toBe(0);
+    expect(listRes.stderr).toContain('Invalid ticket data');
+    expect(fs.readFileSync(dataFile, 'utf-8')).toBe(raw);
+
+    const createRes = runCli(['create', '--title', 'Should Not Persist']);
+    expect(createRes.status).not.toBe(0);
+    expect(fs.readFileSync(dataFile, 'utf-8')).toBe(raw);
+  });
 });
