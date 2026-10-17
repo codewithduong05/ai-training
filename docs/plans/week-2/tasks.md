@@ -2,7 +2,7 @@
 
 ## Working rules
 
-1. `overview.md` is the acceptance source of truth; `architecture.md` describes the intended boundaries.
+1. `overview.md` is the acceptance source of truth; `architecture.md` describes the intended boundaries. Committed project documentation in this repository is authoritative; local agent rule files (e.g. `.cursor/rules/`) are supplemental and never required.
 2. Execute one task at a time. The developer reviews the plan, diff, and test output before approving the next task.
 3. Follow TDD for each behavior: write a focused failing test, run it to confirm failure, implement the minimum code, rerun to pass, then refactor and rerun.
 4. Do not claim a Red step happened unless the command was actually run and its failing result was observed.
@@ -19,7 +19,7 @@ Expected environment: a compatible Node.js runtime, the repository's package man
 
 **Outcome:** A short, reviewable plan that reconciles the Week 2 overview with repository rules and identifies unspecified behavior before code changes.
 
-**Where to start:** Read `slides.md`, `.cursor/rules/overview.mdc`, `docs/plans/week-2/overview.md`, `docs/plans/week-2/architecture.md`, `docs/plans/week-3/overview.md`, `docs/plans/week-3/architecture.md`, `docs/plans/week-3/tasks.md`, root `package.json`, and inspect for an existing CLI implementation.
+**Where to start:** Read `slides-ai-training.md`, `docs/plans/week-2/overview.md`, `docs/plans/week-2/architecture.md`, `docs/plans/week-3/overview.md`, `docs/plans/week-3/architecture.md`, `docs/plans/week-3/tasks.md`, and inspect for an existing CLI implementation. Note: the repository root has no `package.json` (the Slidev site is not an npm package here), and `.cursor/rules/` is a local-only, gitignored convenience — committed project documentation is authoritative.
 
 **What key points to learn:** Requirements vs assumptions; Ticket fields; command syntax; allowed status/priority values; unit vs integration coverage; safe storage behavior.
 
@@ -35,7 +35,7 @@ Expected environment: a compatible Node.js runtime, the repository's package man
 
 **Outcome:** A minimal TypeScript/Commander/Jest package that can run a test and build without breaking the Slidev site.
 
-**Where to start:** Reuse the location found in TASK-00 if an existing CLI already exists; otherwise use `apps/ticket-manager/`.
+**Where to start:** Reuse the location found in TASK-00 if an existing CLI already exists; otherwise use `week-2/ticket-manager/`.
 
 **What key points to learn:** TypeScript entry points, executable CLI entry, Commander command registration, test runner setup, package-manager isolation.
 

@@ -155,6 +155,15 @@ describe('CLI Integration & Failure Path Tests', () => {
     expect(all.stdout).toContain('Beta');
   });
 
+  test('create with invalid status enum fails clearly, exits non-zero, writes nothing', () => {
+    const res = runCli(['create', '--title', 'Bad Status', '--status', 'not_a_status']);
+    expect(res.status).not.toBe(0);
+    expect(res.stderr).toContain('Validation failed');
+    expect(res.stderr).toContain('status');
+    expect(res.stderr).not.toMatch(/\n\s+at /);
+    expect(fs.existsSync(dataFile)).toBe(false);
+  });
+
   test('update of a nonexistent ticket ID fails clearly and leaves storage unchanged', () => {
     runCli(['create', '--title', 'Keep Me']);
     const raw = fs.readFileSync(dataFile, 'utf-8');

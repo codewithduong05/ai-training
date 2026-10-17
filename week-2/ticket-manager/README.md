@@ -71,6 +71,11 @@ npm test
 
 ## Error & Failure Behavior
 
+All failures print a single clear `Error: ...` line to `stderr` (no stack traces) and exit with code `1`.
+
 - **Missing Data File:** Treated as an empty ticket collection (`[]`). Parent directories and file are created automatically on the first write.
-- **Corrupted JSON File:** Throws an explicit error (`Corrupted JSON data in tickets file`) and refuses to silently overwrite or erase existing data.
-- **Invalid Input / Unknown ID:** Displays a helpful error message to `stderr` and exits with a non-zero exit code (`1`).
+- **Corrupted / Empty JSON File:** Throws an explicit error (`Corrupted JSON data in tickets file ...`) and refuses to silently overwrite or erase existing data.
+- **Structurally Invalid Ticket Records:** Throws `Invalid ticket data ...` naming the offending index/field (e.g. bad `status`/`priority` enum, non-string tags). The file is never overwritten.
+- **Invalid Input / Unknown ID:** `create` with an invalid `--status`/`--priority` value fails with `Validation failed: ...` before anything is written. `show`/`update` with an unknown ID report `not found`. `update` only changes `status` and rejects invalid statuses; the data file is left unchanged on any failure.
+- **Invalid List Filters:** `list --status <bad>` or `list --priority <bad>` fail with `Invalid status/priority filter ... Must be one of: ...` instead of silently matching nothing. Valid filters (`--status`, `--priority`, `--tags`) combine with AND semantics.
+- **Filesystem Errors:** Read/write failures (unwritable path, data path pointing at a directory, permission problems) are reported as `Failed to read/write tickets file (<path>): ...`.

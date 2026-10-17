@@ -27,3 +27,17 @@ Tính toàn vẹn dữ liệu
 
 Phạm vi thay đổi
 Chỉ sửa storage, test và file dữ liệu liên quan; không mở rộng sang Week 3.
+
+# REVIEW-FIX-02
+Chờ hoàn thiện docs
+
+CLI validation và regression tests
+Đã bổ sung kiểm tra enum cho status/priority filter, test pass-through từ Commander và các tình huống update thất bại.
+
+
+Dọn code dư
+Ba file legacy được xóa sau khi xác nhận không còn nơi sử dụng. Đây là thay đổi hợp lý.
+
+
+Thiếu tài liệu acceptance chuẩn
+Architecture, tasks và runbook vẫn tham chiếu đến overview.md không tồn tại trên nhánh hiện tại.

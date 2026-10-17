@@ -7,19 +7,19 @@ This file turns the Week 2 docs into a controlled agent workflow. **Do not paste
 1. Open the repository in OpenCode at the repository root.
 2. Ensure there are no unrelated changes you might confuse with agent edits: `git status --short`.
 3. The plan source files are:
-   - `slides.md`
-   - `.cursor/rules/overview.mdc`
-   - `docs/plans/week-2/overview.md`
+   - `slides-ai-training.md` (the repository's training slides; there is no `slides.md`)
+   - `docs/plans/week-2/overview.md` (acceptance source of truth)
    - `docs/plans/week-2/architecture.md`
    - `docs/plans/week-2/tasks.md`
    - Week 3 overview/architecture/tasks for compatibility context
-   - root `package.json` (the root app is Slidev)
+
+   Committed project documentation in this repository is authoritative. Local agent rule files (e.g. `.cursor/rules/`) are supplemental only and are gitignored, so no plan step may depend on them. The repository root has no `package.json`; the Slidev site is not an npm package in this repo, and the CLI lives in `week-2/ticket-manager/` with its own package.
 4. The first request must be Phase 0 only. Do not permit code generation before contract review.
 
 ## Shared instruction to include in every implementation prompt
 
 ```text
-Follow the repository rules in .cursor/rules/overview.mdc and the current task in docs/plans/week-2/tasks.md. Treat docs/plans/week-2/overview.md as the acceptance source of truth. Read the relevant architecture and Week 3 references before editing.
+Follow the committed project documentation in this repository (docs/plans/week-2/overview.md as acceptance source of truth, plus docs/plans/week-2/tasks.md and architecture.md). Local agent rule files such as .cursor/rules/ are supplemental only and must not be required. Read the relevant architecture and Week 3 references before editing.
 
 Work ONLY on the current task. Do not run later tasks, add out-of-scope features, alter slides, or repurpose the root Slidev package. Follow TDD: write a focused test, run it and observe failure, implement the smallest change, rerun to pass, then refactor and rerun. Never claim a command passed or a Red step occurred unless you actually ran it and saw the result.
 
@@ -33,7 +33,7 @@ Before finishing, show changed files, explain each change, list exact commands a
 **Prompt to paste into OpenCode:**
 
 ```text
-Read and reconcile these files: slides.md, .cursor/rules/overview.mdc, docs/plans/week-2/overview.md, docs/plans/week-2/architecture.md, docs/plans/week-2/tasks.md, docs/plans/week-3/overview.md, docs/plans/week-3/architecture.md, docs/plans/week-3/tasks.md, root package.json, and the current repository tree.
+Read and reconcile these files: slides-ai-training.md, docs/plans/week-2/overview.md, docs/plans/week-2/architecture.md, docs/plans/week-2/tasks.md, docs/plans/week-3/overview.md, docs/plans/week-3/architecture.md, docs/plans/week-3/tasks.md, the week-2/ticket-manager package, and the current repository tree. Committed project documentation is authoritative; local agent rules (.cursor/rules/) are supplemental and gitignored. The repository root has no package.json.
 
 Do not create/edit/delete any files and do not install dependencies.
 
@@ -64,7 +64,7 @@ Execute TASK-01 only. Create or adapt the smallest CLI package using the approve
 Run the package's test and build/type-check commands. Do not implement tickets yet. Stop at the review gate.
 ```
 
-**Review yourself:** root `package.json` and lockfile were not repurposed; project-local scripts work; `--help` or equivalent works; no ticket features were added prematurely.
+**Review yourself:** no root-level Slidev files or unrelated plans were modified (the repository root has no `package.json`); project-local scripts work; `--help` or equivalent works; no ticket features were added prematurely.
 
 ---
 
@@ -149,7 +149,7 @@ From the repository root:
 ```bash
 git status --short
 git diff --check
-git diff -- docs/plans/week-2 apps/ticket-manager
+git diff -- docs/plans/week-2 week-2/ticket-manager
 ```
 
 Run the package test/build commands reported by OpenCode; do not guess their names if the generated `package.json` differs. If the app folder has not been staged/tracked yet, `git diff` may not show new files; use `git status --short` and inspect the files directly.

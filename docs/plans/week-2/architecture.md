@@ -31,28 +31,24 @@ Build a small, maintainable CLI for managing tickets in local JSON storage. Week
 
 ## 3. Proposed application boundary
 
-Keep the CLI isolated from the existing Slidev application. Preferred location: `apps/ticket-manager/`. Before creating it, inspect the repository for an existing implementation and reuse it if present. Do not replace the root `package.json`, root lockfile, slides, or unrelated plans to make the CLI work.
+Keep the CLI isolated from the existing Slidev application. The actual repository layout keeps the CLI at `week-2/ticket-manager/` (reuse it rather than creating a second copy; `apps/ticket-manager/` was only a preferred-if-absent suggestion). Do not alter root-level Slidev files (`slides-ai-training.md`) or unrelated plans to make the CLI work. The repository root has no `package.json` or lockfile to repurpose.
 
 ```text
 Repository root
-├── slides.md                         # Existing onboarding slides
-├── package.json                      # Existing Slidev app; do not repurpose
-└── apps/
-    └── ticket-manager/
-        ├── package.json              # CLI-specific scripts and dependencies
+├── slides-ai-training.md            # Training slides (root has no package.json)
+├── docs/plans/week-2/               # Plan documents (overview, architecture, tasks, ...)
+└── week-2/
+    └── ticket-manager/              # Existing CLI package — reuse, do not duplicate
+        ├── package.json             # CLI-specific scripts and dependencies
         ├── tsconfig.json
-        ├── src/
-        │   ├── index.ts              # Executable entry point
-        │   ├── cli.ts                # Commander setup and command registration
-        │   ├── commands/             # Thin CLI handlers
-        │   ├── domain/               # Ticket model and validation
-        │   ├── services/             # Ticket use cases
-        │   └── storage/              # JSON persistence
-        ├── tests/
-        │   ├── unit/
-        │   └── integration/
-        ├── data/                    # Default runtime data location, if appropriate
-        └── README.md                 # Install, configuration, usage
+        ├── jest.config.js
+        ├── README.md                # Install, configuration, usage
+        ├── tickets.json             # Default local data file (runtime)
+        └── src/
+            ├── cli.ts               # Commander setup and command registration
+            ├── domain/              # Ticket model and validation
+            ├── services/            # Ticket use cases
+            └── storage/             # JSON persistence
 ```
 
 This is a guide, not permission to create empty layers or one file per function unnecessarily. Keep the smallest structure that still makes command handling, business logic, and JSON storage distinct.
