@@ -92,4 +92,21 @@ describe('TicketService & Storage Integration', () => {
     const content = fs.readFileSync(dataFile, 'utf-8');
     expect(content).toContain('invalid json');
   });
+
+  test('should reject invalid status filter with clear message', () => {
+    expect(() => service.listTickets({ status: 'bogus' })).toThrow(/status.*open.*in_progress/i);
+  });
+
+  test('should reject invalid priority filter with clear message', () => {
+    expect(() => service.listTickets({ priority: 'bogus' })).toThrow(/priority.*low.*urgent/i);
+  });
+
+  test('should accept valid combined filters', () => {
+    service.createTicket({ title: 'A', status: 'open', priority: 'high', tags: ['fe'] });
+    service.createTicket({ title: 'B', status: 'closed', priority: 'low', tags: ['be'] });
+
+    const result = service.listTickets({ status: 'open', priority: 'high', tags: 'fe' });
+    expect(result).toHaveLength(1);
+    expect(result[0]?.title).toBe('A');
+  });
 });

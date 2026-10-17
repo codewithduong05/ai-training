@@ -1,5 +1,12 @@
 import crypto from 'crypto';
-import { Ticket, TicketStatus, TicketPriority, validateTicket } from '../domain/ticket';
+import {
+  Ticket,
+  TicketStatus,
+  TicketPriority,
+  validateTicket,
+  VALID_STATUSES,
+  VALID_PRIORITIES,
+} from '../domain/ticket';
 import { readTickets, writeTickets, DEFAULT_DATA_PATH } from '../storage/storage';
 
 export class TicketService {
@@ -43,6 +50,19 @@ export class TicketService {
     priority?: string;
     tags?: string;
   }): Ticket[] {
+    if (filters) {
+      if (filters.status !== undefined && !VALID_STATUSES.includes(filters.status as TicketStatus)) {
+        throw new Error(
+          `Invalid status filter "${filters.status}". Must be one of: ${VALID_STATUSES.join(', ')}`
+        );
+      }
+      if (filters.priority !== undefined && !VALID_PRIORITIES.includes(filters.priority as TicketPriority)) {
+        throw new Error(
+          `Invalid priority filter "${filters.priority}". Must be one of: ${VALID_PRIORITIES.join(', ')}`
+        );
+      }
+    }
+
     let tickets = readTickets(this.dataFile);
 
     if (!filters) {

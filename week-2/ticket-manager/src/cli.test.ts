@@ -118,4 +118,64 @@ describe('CLI Integration & Failure Path Tests', () => {
     expect(res.stderr).toContain('Failed to read tickets file');
     expect(res.stderr).not.toMatch(/\n\s+at /);
   });
+
+  test('list --status with invalid enum fails clearly with non-zero exit', () => {
+    const res = runCli(['list', '--status', 'bogus_status']);
+    expect(res.status).not.toBe(0);
+    expect(res.stderr).toContain('status');
+    expect(res.stderr).toContain('open');
+    expect(res.stderr).not.toMatch(/\n\s+at /);
+  });
+
+  test('list --priority with invalid enum fails clearly with non-zero exit', () => {
+    const res = runCli(['list', '--priority', 'bogus_priority']);
+    expect(res.status).not.toBe(0);
+    expect(res.stderr).toContain('priority');
+    expect(res.stderr).toContain('urgent');
+    expect(res.stderr).not.toMatch(/\n\s+at /);
+  });
+
+  test('valid filters pass through Commander to the service correctly', () => {
+    runCli(['create', '--title', 'Alpha', '--status', 'open', '--priority', 'high', '--tags', 'frontend']);
+    runCli(['create', '--title', 'Beta', '--status', 'closed', '--priority', 'low', '--tags', 'backend']);
+
+    const byStatusPriority = runCli(['list', '--status', 'open', '--priority', 'high']);
+    expect(byStatusPriority.status).toBe(0);
+    expect(byStatusPriority.stdout).toContain('Alpha');
+    expect(byStatusPriority.stdout).not.toContain('Beta');
+
+    const byTags = runCli(['list', '--tags', 'backend']);
+    expect(byTags.status).toBe(0);
+    expect(byTags.stdout).toContain('Beta');
+    expect(byTags.stdout).not.toContain('Alpha');
+
+    const all = runCli(['list']);
+    expect(all.status).toBe(0);
+    expect(all.stdout).toContain('Alpha');
+    expect(all.stdout).toContain('Beta');
+  });
+
+  test('update of a nonexistent ticket ID fails clearly and leaves storage unchanged', () => {
+    runCli(['create', '--title', 'Keep Me']);
+    const raw = fs.readFileSync(dataFile, 'utf-8');
+
+    const res = runCli(['update', 'no-such-id', '--status', 'open']);
+    expect(res.status).not.toBe(0);
+    expect(res.stderr).toContain('not found');
+    expect(res.stderr).not.toMatch(/\n\s+at /);
+    expect(fs.readFileSync(dataFile, 'utf-8')).toBe(raw);
+  });
+
+  test('update with invalid status fails clearly and leaves storage unchanged', () => {
+    runCli(['create', '--title', 'Keep Me Too']);
+    const data = JSON.parse(fs.readFileSync(dataFile, 'utf-8'));
+    const ticketId = data[0].id;
+    const raw = fs.readFileSync(dataFile, 'utf-8');
+
+    const res = runCli(['update', ticketId, '--status', 'not_a_status']);
+    expect(res.status).not.toBe(0);
+    expect(res.stderr).toContain('Validation failed');
+    expect(res.stderr).not.toMatch(/\n\s+at /);
+    expect(fs.readFileSync(dataFile, 'utf-8')).toBe(raw);
+  });
 });
