@@ -23,6 +23,13 @@ describe('Storage record validation', () => {
   const writeRaw = (content: string) => fs.writeFileSync(dataFile, content, 'utf-8');
   const readRaw = () => fs.readFileSync(dataFile, 'utf-8');
 
+  test('rejects zero-byte (empty) data file without treating it as empty collection', () => {
+    writeRaw('');
+
+    expect(() => readTickets(dataFile)).toThrow(/corrupted|empty/i);
+    expect(readRaw()).toBe('');
+  });
+
   test('rejects non-array root value', () => {
     const raw = '{"tickets": []}';
     writeRaw(raw);
@@ -147,5 +154,20 @@ describe('Storage record validation', () => {
     ];
     writeTickets(valid as Ticket[], dataFile);
     expect(readTickets(dataFile)).toEqual(valid);
+  });
+
+  test('read failure (path is a directory) yields actionable wrapped error', () => {
+    const dirPath = path.join(tempDir, 'as-directory');
+    fs.mkdirSync(dirPath);
+
+    expect(() => readTickets(dirPath)).toThrow(/Failed to read tickets file/i);
+  });
+
+  test('write failure (parent path is a file) yields actionable wrapped error', () => {
+    const blocker = path.join(tempDir, 'blocker');
+    fs.writeFileSync(blocker, 'not a directory', 'utf-8');
+    const badPath = path.join(blocker, 'tickets.json');
+
+    expect(() => writeTickets([], badPath)).toThrow(/Failed to write tickets file/i);
   });
 });

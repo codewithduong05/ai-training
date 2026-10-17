@@ -59,7 +59,13 @@ export function readTickets(filePath: string = DEFAULT_DATA_PATH): Ticket[] {
     return [];
   }
 
-  const raw = fs.readFileSync(filePath, 'utf-8');
+  let raw: string;
+  try {
+    raw = fs.readFileSync(filePath, 'utf-8');
+  } catch (err: any) {
+    throw new Error(`Failed to read tickets file (${filePath}): ${err.message}`);
+  }
+
   try {
     const data = JSON.parse(raw);
     return assertValidTickets(data, filePath);
@@ -72,9 +78,13 @@ export function readTickets(filePath: string = DEFAULT_DATA_PATH): Ticket[] {
 }
 
 export function writeTickets(tickets: Ticket[], filePath: string = DEFAULT_DATA_PATH): void {
-  const dir = path.dirname(filePath);
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+  try {
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(filePath, JSON.stringify(tickets, null, 2), 'utf-8');
+  } catch (err: any) {
+    throw new Error(`Failed to write tickets file (${filePath}): ${err.message}`);
   }
-  fs.writeFileSync(filePath, JSON.stringify(tickets, null, 2), 'utf-8');
 }

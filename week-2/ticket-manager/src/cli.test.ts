@@ -94,4 +94,28 @@ describe('CLI Integration & Failure Path Tests', () => {
     expect(createRes.status).not.toBe(0);
     expect(fs.readFileSync(dataFile, 'utf-8')).toBe(raw);
   });
+
+  test('zero-byte data file exits non-zero, prints no stack trace, file unchanged', () => {
+    fs.writeFileSync(dataFile, '', 'utf-8');
+
+    const res = runCli(['list']);
+    expect(res.status).not.toBe(0);
+    expect(res.stderr).toContain('Corrupted JSON data');
+    expect(res.stderr).not.toMatch(/\n\s+at /);
+    expect(fs.readFileSync(dataFile, 'utf-8')).toBe('');
+  });
+
+  test('filesystem failure (data path is a directory) exits non-zero without stack trace', () => {
+    const dirAsData = path.join(tempDir, 'as-directory');
+    fs.mkdirSync(dirAsData);
+
+    const res = spawnSync('npx', ['ts-node', cliPath, 'list'], {
+      env: { ...process.env, TICKETS_DATA_FILE: dirAsData },
+      encoding: 'utf-8',
+    });
+
+    expect(res.status).not.toBe(0);
+    expect(res.stderr).toContain('Failed to read tickets file');
+    expect(res.stderr).not.toMatch(/\n\s+at /);
+  });
 });
