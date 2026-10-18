@@ -41,3 +41,33 @@ Ba file legacy được xóa sau khi xác nhận không còn nơi sử dụng. �
 
 Thiếu tài liệu acceptance chuẩn
 Architecture, tasks và runbook vẫn tham chiếu đến overview.md không tồn tại trên nhánh hiện tại.
+# DOCS-FIX-01
+Git state chưa nhất quán
+Báo cáo nói overview.md vẫn là file untracked và chưa commit, nhưng đồng thời cung cấp link commit d56d8f9. Cần xác minh commit đó thực sự chứa những thay đổi nào và file hiện có đang ở trạng thái nào.
+
+
+
+TDD evidence chưa được xác nhận
+Báo cáo cho rằng đã có một chu trình Red–Green–Refactor từ trước. Nhưng trong vòng review ban đầu, evidence có lỗi import module chưa tồn tại, chưa chứng minh hành vi nghiệp vụ thất bại. Chu trình storage validation ở REVIEW-FIX-01 mới là bằng chứng phù hợp hơn.
+
+# Week 2 — Ticket Manager CLI
+Functionally accepted
+
+Automated tests
+39
+Đều pass theo báo cáo
+
+
+TypeScript build
+PASS
+0 compilation errors
+
+
+
+
+Yêu cầu và tài liệu đã đồng bộ
+overview.md được khôi phục từ bản gốc, các tham chiếu hỏng đã được sửa.
+
+
+Các lỗi kỹ thuật đã xử lý
+Validation dữ liệu JSON, filesystem errors, CLI enum filters, update failure paths và cleanup code dư.
